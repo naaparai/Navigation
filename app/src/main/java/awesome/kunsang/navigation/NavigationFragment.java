@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 public class NavigationFragment extends Fragment {
 
     public static final String preFile="textFile";
+    public static final String userKey="key";
     ActionBarDrawerToggle mDrawerToggle;
     DrawerLayout mDrawerLayout;
     boolean mUserLearnedDrawer;
@@ -35,6 +36,11 @@ public class NavigationFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_navigation, container, false);
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mUserLearnedDrawer=Boolean.valueOf(readFromPreferences(getActivity(),userKey,"false"));
+    }
 
     public void setup(DrawerLayout drawer,Toolbar toolbar) {
         mDrawerLayout=drawer;
@@ -62,7 +68,7 @@ public class NavigationFragment extends Fragment {
     }
 
     public static String readFromPreferences(Context context,String preferenceName,String defaultValue){
-        SharedPreferences sharePreference=context.getSharedPreferences(preFile,Context.MODE_PRIVATE);
+        SharedPreferences sharePreference=context.getSharedPreferences(preFile, Context.MODE_PRIVATE);
          return sharePreference.getString(preferenceName,defaultValue);
 
     }
